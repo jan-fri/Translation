@@ -1,1 +1,6 @@
-C:\Users\Jasiek\Desktop\Semestr 6\Translacja\Translation\Translation\bin\Debug\Translation.exe.config
+C:\Users\Jasiek\Desktop\Semestr_6\Translacja\Translation\Translation\bin\Debug\Translation.exe.config
+C:\Users\Jasiek\Desktop\Semestr_6\Translacja\Translation\Translation\obj\Debug\Translation.csprojResolveAssemblyReference.cache
+C:\Users\Jasiek\Desktop\Semestr_6\Translacja\Translation\Translation\bin\Debug\Translation.exe
+C:\Users\Jasiek\Desktop\Semestr_6\Translacja\Translation\Translation\bin\Debug\Translation.pdb
+C:\Users\Jasiek\Desktop\Semestr_6\Translacja\Translation\Translation\obj\Debug\Translation.exe
+C:\Users\Jasiek\Desktop\Semestr_6\Translacja\Translation\Translation\obj\Debug\Translation.pdb
