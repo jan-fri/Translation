@@ -8,26 +8,24 @@ namespace Translation
 {
     enum SymbolType
     {
-        leftParenthesis,
-        rightParenthesis,
+        left_parenthesis,
+        right_parenthesis,
         operation,
         integer,
-        floatingNumber,
+        floating_number,
         identifier,
-        whiteSpace,
-        newLine
+        whitespace,
+        new_line
     }
 
     public class Program
     {
+        private bool _error;
         private int _counter;
         private SymbolType _lecsicalSymbolType;
         private string _line;
         private char _symbol;
-        private StringBuilder _identifier;
-        private StringBuilder _integer;
-        private StringBuilder _floatingNumber;
-
+        private StringBuilder _number;
 
         private void ReadFromFile(string filePath)
         {
@@ -40,56 +38,41 @@ namespace Translation
             file.Close();
         }
 
-        //private void AnalizeLine()
-        //{
-        //    foreach (char _symbol in _line)
-        //    {
-        //        AnalizeLecsicalSymbolType(); 
-        //    }
-        //}
-        //private void GetInteger()
-        //{
-        //    _integer = new StringBuilder();
-        //    _integer.Append(_symbol);
-
-        //    if (++_counter <= _line.Length - 1)
-        //    {
-        //        _symbol = _line[_counter];
-        //        if (char.IsDigit(_symbol))
-        //        {
-        //            while (char.IsDigit(_symbol))
-        //            {
-        //                _integer.Append(_symbol);
-        //                _counter++;
-        //                _symbol = _line[_counter];
-        //            }
-        //        }
-        //        else
-        //            _symbol = _line[_counter--];
-        //    }
-            
-        //}
-
         private void GetIdentifier()
         {
-            _identifier = new StringBuilder();
-            _identifier.Append(_symbol);
+            _number = new StringBuilder();
+            _number.Append(_symbol);
 
             if (++_counter <= _line.Length - 1)
             {
                 _symbol = _line[_counter];
-                if (char.IsLetter(_symbol) || char.IsDigit(_symbol))
+
+                while (char.IsLetter(_symbol) || char.IsDigit(_symbol) || _symbol == '.')
                 {
-                    while (char.IsLetter(_symbol) || char.IsDigit(_symbol))
+                    if (_symbol == '.' && _number.ToString().Contains('.'))
                     {
-                        _identifier.Append(_symbol);
-                        _counter++;
-                        _symbol = _line[_counter];
+                        Console.WriteLine("Symbol not recognized, canceling translation");
+                        _error = true;
+                        break;
                     }
+
+                    _number.Append(_symbol);
+                    _counter++;
+                    _symbol = _line[_counter];
                 }
+
                 _symbol = _line[_counter--];
             }
-            
+
+            if (!_error)
+            {
+                string id = _number.ToString();
+                if (id.Contains('.'))
+                    _lecsicalSymbolType = SymbolType.floating_number;
+
+                Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _number); 
+            }
+
         }
 
 
@@ -97,16 +80,19 @@ namespace Translation
         {
             for (_counter = 0; _counter < _line.Length; _counter++)
             {
+                if (_error)
+                    break;
+
                 _symbol = _line[_counter];
 
                 if (_symbol == '(')
                 {
-                    _lecsicalSymbolType = SymbolType.leftParenthesis;
+                    _lecsicalSymbolType = SymbolType.left_parenthesis;
                     Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _symbol);
                 }
                 else if (_symbol == ')')
                 {
-                    _lecsicalSymbolType = SymbolType.rightParenthesis;
+                    _lecsicalSymbolType = SymbolType.right_parenthesis;
                     Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _symbol);
                 }
                 else if (_symbol == '*' || _symbol == '+' || _symbol == '/' || _symbol == '-')
@@ -114,24 +100,25 @@ namespace Translation
                     _lecsicalSymbolType = SymbolType.operation;
                     Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _symbol);
                 }
-                else if (char.IsWhiteSpace(_symbol))
-                {
-                    _lecsicalSymbolType = SymbolType.whiteSpace;
-                    Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _symbol);
-                }
                 else if (char.IsDigit(_symbol))
                 {
                     _lecsicalSymbolType = SymbolType.integer;
                     GetIdentifier();
-                    Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _identifier);
                 }
                 else if (char.IsLetter(_symbol))
                 {
                     _lecsicalSymbolType = SymbolType.identifier;
                     GetIdentifier();
-                    Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _identifier);
                 }
-
+                else if (char.IsWhiteSpace(_symbol))
+                {
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine("Symbol not recognized, canceling translation");
+                    break;
+                }
 
             }
         }
