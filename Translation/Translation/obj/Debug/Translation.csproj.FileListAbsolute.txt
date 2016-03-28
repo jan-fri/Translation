@@ -10,3 +10,9 @@ C:\Users\jasiek\Desktop\Studia\III_Rok\Semestr_6\Translacja\program_1\Translatio
 C:\Users\jasiek\Desktop\Studia\III_Rok\Semestr_6\Translacja\program_1\Translation\Translation\bin\Debug\Translation.exe
 C:\Users\jasiek\Desktop\Studia\III_Rok\Semestr_6\Translacja\program_1\Translation\Translation\bin\Debug\Translation.pdb
 C:\Users\jasiek\Desktop\Studia\III_Rok\Semestr_6\Translacja\program_1\Translation\Translation\obj\Debug\Translation.csprojResolveAssemblyReference.cache
+C:\Users\Jasiek\OneDrive\Studia\semestr_6\Translatory\program_1\Translation\Translation\bin\Debug\Translation.exe.config
+C:\Users\Jasiek\OneDrive\Studia\semestr_6\Translatory\program_1\Translation\Translation\obj\Debug\Translation.exe
+C:\Users\Jasiek\OneDrive\Studia\semestr_6\Translatory\program_1\Translation\Translation\obj\Debug\Translation.pdb
+C:\Users\Jasiek\OneDrive\Studia\semestr_6\Translatory\program_1\Translation\Translation\bin\Debug\Translation.exe
+C:\Users\Jasiek\OneDrive\Studia\semestr_6\Translatory\program_1\Translation\Translation\bin\Debug\Translation.pdb
+C:\Users\Jasiek\OneDrive\Studia\semestr_6\Translatory\program_1\Translation\Translation\obj\Debug\Translation.csprojResolveAssemblyReference.cache

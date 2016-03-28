@@ -60,7 +60,6 @@ namespace Translation
                     _counter++;
                     _symbol = _line[_counter];
                 }
-
                 _symbol = _line[_counter--];
             }
 
@@ -127,6 +126,7 @@ namespace Translation
         {
             Program prog = new Program();
             prog.ReadFromFile("new.txt");
+            Console.ReadLine();
         }
     }
 }
