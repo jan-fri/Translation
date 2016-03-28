@@ -32,13 +32,23 @@ namespace Translation
             System.IO.StreamReader file = new System.IO.StreamReader(filePath);
             while ((_line = file.ReadLine()) != null)
             {
+                string l = _line + ' ';
+                _line = l;
                 AnalizeLecsicalSymbolType();
             }
 
             file.Close();
         }
 
-        private void GetIdentifier()
+        private void CheckSymbol()
+        {
+            if (_symbol == '.' && _number.ToString().Contains('.'))
+            {
+                Console.WriteLine("Symbol not recognized, canceling translation");
+                _error = true;
+            }
+        }
+        private void GetNumber()
         {
             _number = new StringBuilder();
             _number.Append(_symbol);
@@ -47,14 +57,11 @@ namespace Translation
             {
                 _symbol = _line[_counter];
 
-                while (char.IsLetter(_symbol) || char.IsDigit(_symbol) || _symbol == '.')
+                while (char.IsDigit(_symbol) || _symbol == '.')
                 {
-                    if (_symbol == '.' && _number.ToString().Contains('.'))
-                    {
-                        Console.WriteLine("Symbol not recognized, canceling translation");
-                        _error = true;
+                    CheckSymbol();
+                    if (_error == true)
                         break;
-                    }
 
                     _number.Append(_symbol);
                     _counter++;
@@ -70,6 +77,36 @@ namespace Translation
                     _lecsicalSymbolType = SymbolType.floating_number;
 
                 Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _number); 
+            }
+
+        }
+
+        private void GetWord()
+        {
+            _number = new StringBuilder();
+            _number.Append(_symbol);
+
+            if (++_counter <= _line.Length - 1)
+            {
+                _symbol = _line[_counter];
+
+                while (char.IsLetter(_symbol) || char.IsDigit(_symbol))
+                {
+                    _number.Append(_symbol);
+                    _counter++;
+                    _symbol = _line[_counter];
+                }
+
+                _symbol = _line[_counter--];
+            }
+
+            if (!_error)
+            {
+                string id = _number.ToString();
+                if (id.Contains('.'))
+                    _lecsicalSymbolType = SymbolType.floating_number;
+
+                Console.WriteLine("{0}: {1}", _lecsicalSymbolType, _number);
             }
 
         }
@@ -102,12 +139,12 @@ namespace Translation
                 else if (char.IsDigit(_symbol))
                 {
                     _lecsicalSymbolType = SymbolType.integer;
-                    GetIdentifier();
+                    GetNumber();
                 }
                 else if (char.IsLetter(_symbol))
                 {
                     _lecsicalSymbolType = SymbolType.identifier;
-                    GetIdentifier();
+                    GetWord();
                 }
                 else if (char.IsWhiteSpace(_symbol))
                 {
