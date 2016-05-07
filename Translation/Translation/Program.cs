@@ -27,17 +27,11 @@ namespace Translation
         private char _symbol;
         private StringBuilder _number;
 
-        private void ReadFromFile(string filePath)
-        {
-            System.IO.StreamReader file = new System.IO.StreamReader(filePath);
-            while ((_line = file.ReadLine()) != null)
-            {
-                string l = _line + ' ';
-                _line = l;
-                AnalizeLecsicalSymbolType();
-            }
-
-            file.Close();
+        private void ReadString(string wyrazenie)
+        {                
+            _line = wyrazenie + ' ';
+            AnalizeLecsicalSymbolType();
+            _error = false;
         }
 
         private void CheckSymbol()
@@ -162,8 +156,17 @@ namespace Translation
         static void Main(string[] args)
         {
             Program prog = new Program();
-            prog.ReadFromFile("new.txt");
-            Console.ReadLine();
+
+            while (true)
+            {
+                Console.WriteLine("Podaj wyrazenie:");
+                string wyrazenie = Console.ReadLine();
+                if (!string.IsNullOrEmpty(wyrazenie))
+                {
+                    prog.ReadString(wyrazenie);
+                }    
+                            
+            }
         }
     }
 }
